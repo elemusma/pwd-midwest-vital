@@ -15,25 +15,31 @@
 
   <!-- <div class="blank-space" style=""></div> -->
 
-  <header class="header-nav position-fixed w-100" style="top:0;left:0;z-index:10;">
+  <header class="header-nav bg-white position-fixed w-100" style="top:0;left:0;z-index:10;">
     <div class="nav" style="">
       <div class="container">
         <div class="row justify-content-between align-items-center">
 
-          <div class="col-lg-3 col-md-2 col-5 text-center" style="">
-            <div class="bg-white box-shadow" style="border-bottom-left-radius:25px;border-bottom-right-radius:25px;padding-top:15px;">
+          <div class="col-lg-2 col-md-2 col-5 text-center" style="">
+            <div class="" style="">
             <a href="<?php echo home_url(); ?>/" title="<?php echo get_bloginfo( 'name' ) . ' - ' . get_bloginfo( 'description' ); ?>" class="">
               <div id="logoMain" style="min-width:100px;width:75%;transition:all .25s ease-in-out;margin:auto;">
                 <div style="pointer-events:none;">
                   <?php 
-                  if (logoImg()) {
-echo wp_get_attachment_image(logoImg()['id'], 'full','',array(
-	'class'=>'w-100 h-auto skip-lazy',
-	'style'=>''
-));
-                  } else {
-                    echo logoSVG(); 
-                    }
+                  $logo_image = logoImg();
+
+if (! empty($logo_image['id'])) {
+    echo wp_get_attachment_image(
+        $logo_image['id'],
+        'full',
+        false,
+        array(
+            'class' => 'w-100 h-auto skip-lazy'
+        )
+    );
+} else {
+    echo logoSVG();
+}
                   ?>
                 </div>
               </div>
@@ -41,9 +47,9 @@ echo wp_get_attachment_image(logoImg()['id'], 'full','',array(
             </div>
           </div>
 
-          <div class="col-9 text-center mobile-hidden">
+        <div class="col-10 text-center mobile-hidden">
 			  <div class="d-flex justify-content-end h-100" style="border-radius:25px;">
-          <div class="bg-white box-shadow br-25 d-flex" style="padding-left:25px;">
+          <div class="br-25 d-flex" style="padding-left:25px;">
             <?php
               wp_nav_menu(array(
                 'menu' => 'primary',

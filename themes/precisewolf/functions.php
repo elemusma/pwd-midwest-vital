@@ -1,7 +1,7 @@
 <?php
 
 include_once get_theme_file_path('/codestarframework/codestarframework.php');
-include_once get_theme_file_path('/gravityforms/gravityforms.php');
+// include_once get_theme_file_path('/gravityforms/gravityforms.php'); // overrides contact form text
 require_once get_stylesheet_directory() . '/spam-filter/spam-filter.php';
 
 function dr_raphael_stylesheets() {
@@ -26,7 +26,12 @@ wp_enqueue_style('font-poppins', get_theme_file_uri('/font-poppins/font-poppins.
 
 // if(is_front_page()){
 wp_enqueue_style('services', get_theme_file_uri('/css/sections/services.css'));
-wp_enqueue_style('home', get_theme_file_uri('/css/sections/home.css'));
+wp_enqueue_style(
+	'home',
+	get_theme_file_uri('/css/sections/home.css'),
+	array(),
+	filemtime(get_theme_file_path('/css/sections/home.css'))
+);
 // }
 if(is_page_template('templates/about.php')){
 wp_enqueue_style('about-custom', get_theme_file_uri('/css/sections/about.css'));
@@ -360,8 +365,7 @@ add_shortcode( 'txt_type', 'txt_type_shortcode' );
 
 function dr_raphael_contact_shortcode() {
     return do_shortcode('
-        [button href="#expert-witness" class="small btn-contact" style="margin-left:0px;"]Contact ' . expertName() . '[/button]
-        [button href="' . cvDownloadLink() . '" target="_blank" class="white small cv-download" style="margin-left:0px;"]CV Download[/button]
+        [button href="#expert-witness" class="small btn-contact" style="margin-left:0px;"]Request Facility Availability[/button]
         <div style="margin:15px 0px;">
         <span>Call Me: </span>
             <a href="tel:+1' . globalPhone() . '" class="text-link d-inline-block phone" style="">' . globalPhone() . '</a>
@@ -488,22 +492,21 @@ add_filter('category_link', function ($category_link, $category_id) {
 
   function global_cta_block_shortcode() {
     ob_start(); ?>
-    <section class="position-relative bg-accent-secondary" style="padding:0px 0px 150px;" id="expert-witness">
+    <section class="position-relative bg-accent-secondary gradient-bottom-dark-top-light-bottom" style="padding:0px 0px 150px;" id="expert-witness">
   <div class="container">
     <div class="row justify-content-center br-25" style="padding:35px 25px 0px;background:rgba(255,255,255,.5);border:1px solid white;">
       <div class="col-lg-6">
         <?php if(is_page(24)) { ?>
-          <h1 class="h2" style="box-shadow:inset 0 -5px 0 0 var(--accent-primary);display:inline-block;">Get a Life Care Plan That's Admissible in Court</h1>
+          <h1 class="h2" style="box-shadow:inset 0 -5px 0 0 var(--accent-primary);display:inline-block;">Reserve the Facility for Your Inspection</h1>
         <?php } else { ?>
-          <h2 class="" style="box-shadow:inset 0 -5px 0 0 var(--accent-primary);display:inline-block;">Get a Life Care Plan That's Admissible in Court</h2>
+          <h2 class="" style="box-shadow:inset 0 -5px 0 0 var(--accent-primary);display:inline-block;">Reserve the Facility for Your Inspection</h2>
         <?php } ?>
-        <p class="">Dr. Raphael reviews your case, documents every future cost your client will face. Explained in a way that juries understands. Dr. Raphael delivers a report built to survive cross-examination. Available nationwide. Call, text, or email to discuss your case.</p>
-        <img decoding="async" src="/wp-content/uploads/Raphael-Sadiwa-Based-in-Texas-Certified-Life-Care-Planner-Expert-Witness.png" style="bottom:0;width:125px;height:auto;" class="position-lg-absolute" alt="Dr-Raphael-Sadiwa-Life-Care-Planner-Physical-Therapy-Expert-Witness" title="Dr-Raphael-Sadiwa-Life-Care-Planner-Physical-Therapy-Expert-Witness">
+        <p class="">Tell us about the vehicle, the matter and who needs to attend. We&apos;ll check availability and follow up to confirm your inspection day. Cars, commercial trucks, buses and RVs are welcome. One case per day, so the facility is yours for the inspection.</p>
+        <img decoding="async" src="/wp-content/uploads/Steve-Paul-Cutout.png" style="bottom:0;width:175px;height:auto;" class="position-lg-absolute" alt="Dr-Raphael-Sadiwa-Life-Care-Planner-Physical-Therapy-Expert-Witness" title="Dr-Raphael-Sadiwa-Life-Care-Planner-Physical-Therapy-Expert-Witness">
       </div>
       <div class="col-lg-6">
         <div class="position-absolute" style="height:75%;width:1px;background:gray;top:50%;transform:translate(0px,-50%);"></div>
         <div style="padding:0px 25px;">
-          <h2 style="font-size:1.75rem;">Facts &amp; Data Juries Understand</h2>
           <?php 
             echo do_shortcode('[gravityform id="1" title="false" description="false" ajax="true"]');
           ?>

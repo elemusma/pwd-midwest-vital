@@ -17,9 +17,9 @@
     transition:all .25s ease-in-out;
 }
 a:hover .svg-icon {
-    background:var(--accent-secondary);
-    border-color:var(--accent-secondary);
+    background:white;
+    border-color:white;
 }
 a:hover .svg-icon path {
-    fill: white;
+    fill: var(--accent-primary);
 }

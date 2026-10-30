@@ -10,19 +10,19 @@ Version: 1.0
 
 :root {
   --accent-primary-lighter: #5AB6F9;
---accent-primary: #d1b6a3;
+--accent-primary: #3db5d2;
 /* --accent-primary: #574c45; logo gold */
---accent-primary-rgba: 209, 182, 163;
---accent-secondary: #161413; /* white */
---accent-secondary-rgba: 22, 20, 19;
---accent-tertiary: #d1b6a3; /* warm brown */
---accent-tertiary-rgba: 209, 182, 163;
+--accent-primary-rgba: 61, 181, 210;
+--accent-secondary: #002247; /* white */
+--accent-secondary-rgba: 0, 34, 71;
+--accent-tertiary: #111; /* warm brown */
+--accent-tertiary-rgba: 17, 17, 17;
 
 
   --accent-primary-darker: #0E7AC6;
   --accent-primary-darker-rgba: 14, 122, 198;
-  --accent-primary-hover: #B4896A;
-  --accent-secondary-hover: #CA8E02;
+  --accent-primary-hover: #2B9AB6;
+  --accent-secondary-hover: #001429;
   --light: #e4e4e4;
   --light-secondary: #e8edec;
   --text-shadow: 1px 1px 3px black;

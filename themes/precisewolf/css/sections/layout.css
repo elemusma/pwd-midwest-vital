@@ -97,6 +97,13 @@ body {
     flex-direction: row-reverse;
 }
 
+.flex-column-reverse {
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: reverse !important;
+    -ms-flex-direction: column-reverse !important;
+    flex-direction: column-reverse !important;
+}
+
 /* } */
 
 /* Justify Content */

@@ -3,12 +3,12 @@
     padding:0px;
 }
 .accordion > div{
-    background: var(--accent-secondary);
     padding: 20px 40px 20px 20px;
     margin-bottom: 10px;
     position:relative;
-    border-radius: 45px;
-    color:white;
+    border-radius: 18px;
+    background: #303437;
+    color: #fff;
 }
 
 /* span inside accordion (from @if block) */

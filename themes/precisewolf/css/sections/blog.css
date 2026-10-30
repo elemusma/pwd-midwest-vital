@@ -22,6 +22,7 @@
 .publications a:hover {
 	color:black!important;
 	box-shadow: inset 0 -55px 0 0 var(--accent-primary);
+  text-shadow: none;
 }
 /* queries */
 .blog-content {

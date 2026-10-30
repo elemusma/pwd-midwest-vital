@@ -65,6 +65,11 @@ a.bg-accent-secondary:hover {
   background: linear-gradient(0deg, rgba(var(--accent-tertiary-rgba), 1) 0%, rgba(var(--accent-secondary-rgba), 1) 100%);
 }
 
+.bg-gradient-white-top-tertiary-bottom {
+  background: #183034;
+  background: linear-gradient(180deg, rgba(255,255,255, 1) 0%, rgba(var(--accent-tertiary-rgba), 1) 100%);
+}
+
 .gradient-bottom-dark-top-light-bottom:after {
   content:"";
   position:absolute;
@@ -82,9 +87,9 @@ a.bg-accent-secondary:hover {
   bottom:0;
   left:0;
   width:100%;
-  height:100px;
+  height:200px;
   background: #183034;
-  background: linear-gradient(0deg, rgba(var(--accent-secondary-rgba), 1) 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(0deg, rgba(0,0,0, 1) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .gradient-bottom-transparent-top-tertiary-bottom:after {
@@ -127,9 +132,35 @@ a.bg-accent-secondary:hover {
   width:100%;
   height:100px;
   background: #183034;
-  background: linear-gradient(180deg, rgba(var(--accent-secondary-rgba), 1) 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0, 1) 0%, rgba(255, 255, 255, 0) 100%);
   z-index:1;
 }
+
+.gradient-top-white-top-transparent-bottom:before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:200px;
+  background: #183034;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index:1;
+}
+
+
+.gradient-top-tertiary-top-transparent-bottom:before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:200px;
+  background: #183034;
+  background: linear-gradient(180deg, rgba(var(--accent-tertiary-rgba), 1) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index:1;
+}
+
 .gradient-top-light-top-transparent-bottom:before {
   content:"";
   position:absolute;
@@ -140,6 +171,28 @@ a.bg-accent-secondary:hover {
   background: #183034;
   background: linear-gradient(180deg, rgba(var(--accent-tertiary-rgba), 1) 0%, rgba(255, 255, 255, 0) 100%);
   z-index:1;
+}
+
+.gradient-bottom-transparent-top-white-bottom:after {
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:200px;
+  background: #183034;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index:1;
+}
+
+[class*="gradient-"]:before,
+[class*="gradient-"]:after {
+    pointer-events:none;
+}
+
+[class*="gradient-"] [class*="col-"] {
+    position:relative;
+    z-index:1;
 }
 
 .bg-white {

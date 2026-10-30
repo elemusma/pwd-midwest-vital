@@ -12,9 +12,11 @@
     border-radius: 25px;
     text-transform: uppercase;
     border:1px solid var(--accent-primary);
-    font-family: 'poppinssemibold';
+    /* font-family: 'poppinssemibold'; */
+    font-family: 'poppinsbold';
     margin: 10px;
     cursor:pointer;
+    letter-spacing: .05em;
 }
 
 .btn-main:hover,

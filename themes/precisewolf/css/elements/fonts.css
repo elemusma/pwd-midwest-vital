@@ -175,7 +175,7 @@ blockquote {
 
 @media only screen and (max-width:767px) {
   h1, .h1 {
-    font-size: 1.95rem;
+    font-size: 1.95rem !important;
   }
   h2, .h2 {
     font-size: 1.5rem;

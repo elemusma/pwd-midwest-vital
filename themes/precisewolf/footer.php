@@ -1,315 +1,221 @@
 <footer>
-
-<div style="height:100px;" class="bg-gradient-dark-top-primary-bottom"></div>
 <?php
+$footer_phone = trim( (string) globalPhone() );
+$footer_phone_href = preg_replace( '/\D+/', '', $footer_phone );
 
-// if(!is_page(1807)){
-// 	echo get_template_part('lead-magnet/lead-magnet');	
-// }
-
-echo '<section class="bg-accent" style="padding-top:50px;padding-bottom:25px;">';
-echo '<div class="container">';
-echo '<div class="row justify-content-center">';
-
-echo '<div class="col-lg-9 text-center" style="">';
-
-echo '<div class="">';
-echo do_shortcode('[global_cta]');
-echo '</div>';
-
-
-echo '</div>';
-echo '</div>';
-echo '</div>';
-
-echo '<hr style="margin:40px auto !important;border-color:black;">';
-
-echo '<div class="container">';
-echo '<div class="row">';
-
-echo '<div class="col-lg-5 col-md-6">';
-echo '<a href="' . home_url() . '" title="Homepage link for ' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '">';
-echo '<div style="width:90%;min-width:250px;fill:white;" id="logoMain">';
-echo '<div style="pointer-events:none;">';
-
-if (logoImg()) {
-echo wp_get_attachment_image(logoImg()['id'], 'full','',array(
-'class'=>'w-100 h-auto skip-lazy',
-'style'=>''
-));
-} else {
-echo logoSVG();
+if ( $footer_phone_href && '1' !== substr( $footer_phone_href, 0, 1 ) ) {
+    $footer_phone_href = '1' . $footer_phone_href;
 }
 
-echo '</div>';
-echo '</div>';
-echo '</a>';
-
-echo '<p class="">' . companyAbout() . '</p>';
+$footer_email = sanitize_email( emailAddress() );
+$footer_about = companyAbout();
 ?>
+<section class="mv-footer bg-accent-tertiary text-white" style="padding:85px 0px;" id="contact">
+    <div class="container">
+        <div class="row mv-footer-main">
+            <div class="col-lg-4 col-md-6 col-12 mv-footer-about">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( 'Homepage link for ' . get_bloginfo( 'name' ) ); ?>">
+                    <?php 
+                  $logo_image = logoImg();
 
-<div class="d-flex">
+if (! empty($logo_image['id'])) {
+    echo wp_get_attachment_image(
+        $logo_image['id'],
+        'full',
+        false,
+        array(
+            'class' => 'w-100 h-auto skip-lazy'
+        )
+    );
+} else {
+    echo logoSVG();
+}
+                  ?>
+                </a>
 
+                <p><?php echo wp_kses_post( $footer_about ); ?></p>
 
-<div>
-<a href="https://www.roundtablegroup.com/" target="_blank" rel="noopener nofollow external" title="Rountable Group link" style="display:inline-block;" class="">
-<?php
+                <p class="mv-footer-label">Request Facility Availability</p>
+                <a class="mv-footer-strong" href="<?php echo esc_url( 'tel:+' . $footer_phone_href ); ?>"><?php echo esc_html( $footer_phone ); ?></a>
 
-echo wp_get_attachment_image(1121, 'full','',array(
-    'class'=>'',
-    'style'=>'height:52px;width:auto;object-fit:contain;    margin-bottom:-10px;'
-    ));
-    
-    ?>
-</a>
-</div>
+                <a class="mv-footer-strong" href="<?php echo esc_url( 'mailto:' . $footer_email ); ?>"><?php echo esc_html( $footer_email ); ?></a>
 
-<div>
-<?php
-echo get_template_part('partials/si');
-?>
-</div>
+                <div class="mv-footer-socials">
+                    <?php get_template_part( 'partials/si' ); ?>
+                </div>
+            </div>
 
-</div>
+            <div class="col-lg-5 col-md-6 col-12 mv-footer-services">
+                <h3>Midwest Vital Services</h3>
+                <div class="mv-footer-rule"><i></i><span></span></div>
+                <?php
+                wp_nav_menu(array(
+                    'menu' => 'Services',
+                    'menu_class'=>'menu list-unstyled mb-0'
+                ));
+                ?>
+                
+                <!-- <ul>
+                    <li><i>✦</i>Vehicle Inspection</li>
+                    <li><i>✦</i>Expert Reporting</li>
+                    <li><i>✦</i>Technical Analysis</li>
+                    <li><i>✦</i>Consultation</li>
+                    <li><i>✦</i>Document Review</li>
+                    <li><i>✦</i>Case Support</li>
+                    <li><i>✦</i>Independent Review</li>
+                    <li><i>✦</i>Clear Documentation</li>
+                </ul> -->
+            </div>
 
+            <div class="col-lg-3 col-md-6 col-12 mv-footer-contact">
+                <h3>Contact</h3>
+                <div class="mv-footer-rule"><i></i><span></span></div>
 
+                <p class="mv-footer-phone">
+                    <b aria-hidden="true">●</b>
+                    <a href="<?php echo esc_url( 'tel:+' . $footer_phone_href ); ?>"><?php echo esc_html( $footer_phone ); ?></a>
+                </p>
 
-<!-- <div class="position-absolute h-100" style="border:1px solid black;top:0;right:0;"></div> -->
+                <div class="mv-footer-hours">
+                    <p class="mv-footer-hours-title">Working Hours</p>
+                    <strong>Monday - Friday<br>08:00 am - 06:00 pm</strong>
+                    <strong>Saturday - Sunday<br>Closed</strong>
+                </div>
+            </div>
 
-</div> <!-- end of first column -->
-
-<?php
-echo '<div class="col-lg-3 col-md-6">';
-echo '<p class="h3" style="margin-bottom:0px;"><strong>Contact</strong></p>';
-echo wp_get_attachment_image(3009, 'full', false, array(
-    'style'=>'width:150px;height:auto;object-fit:contain;border-radius:25px;'));
-
-    ?>
-    <div class="d-flex" style="margin-top:1em;">
-<div>
-<?php 
-echo wp_get_attachment_image(3010, 'full', false, array(
-    'style'=>'width:20px;margin-right:10px;height:auto;object-fit:contain;border-radius:25px;')); ?>
-</div>
-<div>
-    <p class="" style="margin:0px;"><strong>Phone:</strong><br><a href="tel:+1<?php echo globalPhone(); ?>" title="phone number link for <?php echo get_bloginfo('name'); ?> - <?php echo get_bloginfo('description'); ?>" class=""><?php echo globalPhone(); ?></a></p>
-</div>
-</div>
-
-<?php echo do_shortcode('[spacer]'); ?>
-<div class="d-flex">
-<div>
-<?php 
-echo wp_get_attachment_image(3011, 'full', false, array(
-    'style'=>'width:20px;margin-right:10px;height:auto;object-fit:contain;border-radius:25px;')); ?>
-</div>
-<div>
-    <p class="" style="margin:0px;"><strong>Email:</strong><br><a href="mailto:<?php echo emailAddress(); ?>" title="email address link for <?php echo get_bloginfo('name'); ?> - <?php echo get_bloginfo('description'); ?>" class=""><?php echo emailAddress(); ?></a></p>
-</div>
-</div>
-
-<p style="margin-bottom:0;"><strong>Address</strong></p>
-<p style="margin-top:0;">1846 N Loop 1604 W Suite 205, San Antonio, TX 78248</p>
-
-<?php
-// wp_nav_menu(array(
-//     'menu' => 'Contact Info',
-//     'menu_class'=>'menu list-unstyled mb-0'
-// ));
-
-echo '</div>'; // end of second column
-echo '<div class="col-lg-3 col-md-6">';
-echo '<p class="h3" style="margin-bottom:0px;"><strong>Blog</strong></p>';
-
-$recentBlog = new WP_Query(array(
-'posts_per_page' => 4,
-'post_type' => 'post',
-'post__not_in' => [get_the_ID()],
-));
-echo '<ul class="list-unstyled menu">';
-while($recentBlog->have_posts()){
-$recentBlog->the_post();
-echo '<li><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></li>';
-} wp_reset_postdata();
-echo '</ul>';
-
-?>
-
-
-<?php
-echo '</div>'; // end of third column
-// echo '<div class="col-lg-3 col-md-6">';
-// echo '<p class="h3" style="margin-bottom:0px;"><strong>Blog</strong></p>';
-// echo wp_get_attachment_image(3009, 'full', false, array(
-//     'style'=>'width:150px;height:auto;object-fit:contain;border-radius:25px;'));
-
-// $recentBlog = new WP_Query(array(
-//   'posts_per_page' => 5,
-//   'post_type' => 'post',
-//   'post__not_in' => [get_the_ID()],
-// ));
-
-// echo '<ul class="list-unstyled menu">';
-
-// $i = 0;
-// while ($recentBlog->have_posts()) {
-//   $recentBlog->the_post();
-
-//   $padding = $i === 0 ? 'padding:0px 0px 10px 0px;' : 'padding:10px 0px;';
-
-//   echo '<li><a href="' . get_the_permalink() . '" class="d-block" style="' . $padding . '">' . get_the_title() . '</a></li>';
-
-//   $i++;
-// }
-
-// wp_reset_postdata();
-// echo '</ul>';
-
-// echo '</div>'; // end of third column
-
-?>
-
+            <div class="col-12">
+                <div class="mv-footer-credit text-white">
 <!-- start of backlink -->
-<div class="col-12 text-center" style="padding-top:100px;">
-  <p style="margin-bottom:0px;" class="lead">Copyright &copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?> - <?php bloginfo('description'); ?>. All Rights Reserved.</p>
-
+<div class="col-12 text-center" style="">
+    <p style="margin-bottom:0px;font-size:85%;" class="">Copyright &copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?> - <?php bloginfo('description'); ?>. All Rights Reserved.</p>
 </div>
 
 <div class="col-12">
-    <hr style="margin:20px auto !important;border-color:black;">
+    <hr style="margin:20px auto !important;border-color:rgba(255,255,255,.18);">
 </div>
 
-<div class="col-md-12 col-11 text-center" style="height:45px;">
-<a href="https://precisewolf.com/" target="_blank" rel="noopener nofollow external" title="Web Design & SEO done by Precise Wolf in Denver, CO" style="display:inline-block;" class="precise-wolf-digital-logo">
-<div style="" class="position-relative">
-<svg style="width:200px;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 44.13">
-  <defs>
-    <style>
-      .footer-cls-1 {
-        fill: url(#radial-gradient-2);
-      }
+<div class="col-md-12 col-11 text-center">
+<a href="https://precisewolf.com/" target="_blank" rel="noopener nofollow external" title="Web Design & SEO done by Precise Wolf in Denver, CO" class="precise-wolf-digital-logo">
+  <span class="precise-wolf-site-created-text">Site Created by</span>
+  <span class="precise-wolf-logo-svg-wrap">
+    <svg class="precise-wolf-logo-svg" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1560.29 510.25">
+      <defs>
+        <style>
+          .footer-cls-1 {
+            fill: url(#radial-gradient-2);
+          }
 
-      .footer-cls-2 {
-        fill: url(#radial-gradient);
-      }
+          .footer-cls-2, .footer-cls-3 {
+            stroke: #0f9fda;
+          }
 
-      .footer-cls-3, .footer-cls-4 {
-        stroke: #0f9fda;
-      }
+          .footer-cls-2, .footer-cls-3, .footer-cls-4, .footer-cls-5 {
+            stroke-miterlimit: 10;
+            stroke-width: 10px;
+          }
 
-      .footer-cls-3, .footer-cls-4, .footer-cls-5, .footer-cls-6 {
-        stroke-miterlimit: 10;
-      }
+          .footer-cls-2, .footer-cls-5 {
+            fill: none;
+          }
 
-      .footer-cls-4, .footer-cls-5 {
-        fill: none;
-      }
+          .footer-cls-6 {
+            fill: url(#radial-gradient);
+          }
 
-      .footer-cls-7 {
-        fill: #fff;
-      }
+          .footer-cls-4 {
+            stroke: #fff;
+          }
 
-      .footer-cls-5 {
-        stroke: #000;
-      }
+          .footer-cls-7 {
+            fill: #fff;
+          }
 
-      .footer-cls-6 {
-        stroke: #fff;
-      }
-    </style>
-    <radialGradient id="radial-gradient" cx="82.31" cy="19.31" fx="82.31" fy="19.31" r="1.02" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#90f1fc"/>
-      <stop offset="1" stop-color="#2be7fb"/>
-    </radialGradient>
-    <radialGradient id="radial-gradient-2" cx="82.31" cy="19.31" fx="82.31" fy="19.31" r="1.02" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#a1dff7"/>
-      <stop offset="1" stop-color="#0f9fda"/>
-    </radialGradient>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <g>
-      <g class="logo-circle">
-        <line class="footer-cls-5" x1="87.31" y1="40.4" x2="87.31" y2="43.63"/>
-        <line class="footer-cls-5" x1="87.31" y1=".92" x2="87.31" y2="4.14"/>
-        <line class="footer-cls-5" x1="69.43" y1="21.88" x2="66.19" y2="21.88"/>
-        <line class="footer-cls-5" x1="71.2" y1="13.13" x2="68.63" y2="11.78"/>
-        <line class="footer-cls-5" x1="71.21" y1="30.76" x2="68.82" y2="32.16"/>
-        <circle class="footer-cls-5" cx="87.53" cy="22.09" r="21.54"/>
-        <line class="footer-cls-5" x1="109.2" y1="21.97" x2="105.97" y2="21.97"/>
-        <line class="footer-cls-5" x1="97.55" y1="37.17" x2="99.53" y2="39.98"/>
-        <line class="footer-cls-5" x1="74.99" y1="5.07" x2="76.51" y2="7.23"/>
-        <line class="footer-cls-5" x1="77.65" y1="36.99" x2="75.8" y2="40.02"/>
-        <line class="footer-cls-5" x1="98.05" y1="3.79" x2="96.63" y2="6.12"/>
-        <line class="footer-cls-5" x1="103.98" y1="30.84" x2="106.61" y2="32.44"/>
-        <line class="footer-cls-5" x1="103.98" y1="13.16" x2="106.34" y2="11.6"/>
-      </g>
-      <g class="precise-wolf-logo-text">
+          .footer-cls-5 {
+            stroke: #000;
+          }
+        </style>
+        <radialGradient id="radial-gradient" cx="194.47" cy="223" fx="194.47" fy="223" r="11.82" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#90f1fc"/>
+          <stop offset="1" stop-color="#2be7fb"/>
+        </radialGradient>
+        <radialGradient id="radial-gradient-2" cx="194.47" cy="223" fx="194.47" fy="223" r="11.82" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#a1dff7"/>
+          <stop offset="1" stop-color="#0f9fda"/>
+        </radialGradient>
+      </defs>
+      <g id="Layer_1-2" data-name="Layer 1">
         <g>
-          <path d="M122.41,24.7h4.13c3.15,0,5.29,1.99,5.29,4.9s-2.14,4.9-5.29,4.9h-4.13v-9.8ZM126.45,33.27c2.42,0,3.97-1.48,3.97-3.68s-1.55-3.68-3.97-3.68h-2.64v7.36h2.64Z"/>
-          <path d="M133.96,24.7h1.4v9.8h-1.4v-9.8Z"/>
-          <path d="M145.09,29.54h1.34v3.82c-.98.83-2.34,1.25-3.71,1.25-3.01,0-5.22-2.11-5.22-5.01s2.21-5.01,5.25-5.01c1.55,0,2.87.52,3.76,1.51l-.87.87c-.81-.78-1.74-1.13-2.84-1.13-2.27,0-3.9,1.58-3.9,3.76s1.64,3.76,3.89,3.76c.83,0,1.6-.18,2.29-.63v-3.19Z"/>
-          <path d="M149.11,24.7h1.4v9.8h-1.4v-9.8Z"/>
-          <path d="M155.39,25.91h-3.36v-1.22h8.1v1.22h-3.36v8.58h-1.39v-8.58Z"/>
-          <path d="M167.41,32.04h-5.21l-1.08,2.45h-1.44l4.44-9.8h1.39l4.45,9.8h-1.47l-1.08-2.45ZM166.92,30.92l-2.11-4.8-2.11,4.8h4.23Z"/>
-          <path d="M171.41,24.7h1.4v8.58h5.3v1.22h-6.7v-9.8Z"/>
+          <g class="precise-wolf-logo-text">
+            <g>
+              <path d="M659.76,285.52h47.91c36.54,0,61.39,23.06,61.39,56.84s-24.85,56.84-61.39,56.84h-47.91v-113.68ZM706.69,385.07c28.1,0,46.12-17.21,46.12-42.71s-18.03-42.71-46.12-42.71h-30.69v85.42h30.69Z"/>
+              <path d="M793.9,285.52h16.24v113.68h-16.24v-113.68Z"/>
+              <path d="M923.01,341.71h15.59v44.33c-11.37,9.58-27.12,14.45-43.04,14.45-34.92,0-60.57-24.52-60.57-58.14s25.66-58.14,60.9-58.14c18.03,0,33.29,6.01,43.69,17.54l-10.07,10.07c-9.42-9.09-20.14-13.15-32.97-13.15-26.31,0-45.31,18.35-45.31,43.69s19,43.69,45.15,43.69c9.58,0,18.51-2.11,26.63-7.31v-37.03Z"/>
+              <path d="M969.62,285.52h16.24v113.68h-16.24v-113.68Z"/>
+              <path d="M1042.54,299.65h-38.98v-14.13h94.03v14.13h-38.98v99.55h-16.08v-99.55Z"/>
+              <path d="M1182.04,370.78h-60.41l-12.5,28.42h-16.73l51.48-113.68h16.08l51.64,113.68h-17.05l-12.5-28.42ZM1176.36,357.79l-24.52-55.7-24.52,55.7h49.04Z"/>
+              <path d="M1228.49,285.52h16.24v99.55h61.55v14.13h-77.79v-113.68Z"/>
+            </g>
+            <g>
+              <path d="M657.63,86.93h42.53c22.67,0,33.3,13.29,33.3,36.74,0,29.24-16.1,36.12-36.59,36.12h-11.26v53.79h-27.99v-126.65ZM695,140.25c10.32,0,12.2-5.47,12.2-17.04,0-9.54-1.09-16.57-12.35-16.57h-9.23v33.62h9.38Z"/>
+              <path d="M746.92,86.93h34.87c25.49,0,42.06,6.88,42.06,33.46,0,15.64-2.97,25.96-15.48,31.9l17.36,61.29h-28.93l-13.92-56.76h-7.97v56.76h-27.99v-126.65ZM782.72,140.72c11.73,0,15.17-6.57,15.17-17.82s-3.28-17.2-13.92-17.2h-9.07v35.02h7.82Z"/>
+              <path d="M840.73,86.93h56.91v19.08h-28.93v31.43h22.05v19.39h-22.05v37.84h29.24v18.92h-57.23v-126.65Z"/>
+              <path d="M908.9,173.24v-45.66c0-26.27,9.07-42.37,37.99-42.37s36.43,15.01,36.43,36.59v10.95h-27.36v-12.67c0-7.35-.16-15.17-9.07-15.17s-9.69,7.97-9.69,15.64v59.57c0,8.6,1.41,15.48,9.69,15.48,8.76,0,9.07-7.82,9.07-15.48v-13.29h27.36v10.95c0,21.58-8.13,37.68-36.43,37.68s-37.99-16.57-37.99-42.22Z"/>
+              <path d="M998.81,86.93h27.99v126.65h-27.99v-126.65Z"/>
+              <path d="M1042.9,175.27l23.92-3.6c.31,16.42,4.06,22.52,11.1,22.52,5.79,0,7.04-4.85,7.04-9.23,0-10.48-5.32-16.73-13.92-24.08l-10.95-9.54c-9.69-8.13-17.04-17.67-17.04-32.99,0-21.42,13.6-33.15,35.49-33.15,27.05,0,30.96,21.11,31.43,35.96l-24.08,2.97c-.31-11.26-1.09-18.45-8.29-18.45-5.16,0-7.51,5.47-7.51,9.85,0,9.38,4.85,14.38,12.2,20.8l10.48,9.23c10.94,9.38,19.7,20.48,19.7,37.99s-12.98,31.9-33.15,31.9c-23.92,0-35.49-12.04-36.43-40.18Z"/>
+              <path d="M1126.08,86.93h56.91v19.08h-28.93v31.43h22.05v19.39h-22.05v37.84h29.24v18.92h-57.23v-126.65Z"/>
+              <path d="M1230.84,86.93h23.77l7.51,73.8,9.54-73.64h18.61l10.01,73.18,7.66-73.33h23.45l-15.17,126.65h-24.39l-10.79-76.46-10.16,76.46h-24.7l-15.32-126.65Z"/>
+              <path d="M1342.95,173.71v-47.06c0-26.11,9.54-41.43,37.99-41.43s38.31,15.32,38.31,41.43v47.06c0,26.11-9.69,41.75-38.31,41.75s-37.99-15.64-37.99-41.75ZM1390.64,180.75v-60.98c0-7.51-.94-14.85-9.69-14.85-8.29,0-9.38,7.35-9.38,14.85v60.98c0,7.19.63,14.85,9.38,14.85s9.69-7.66,9.69-14.85Z"/>
+              <path d="M1436.3,86.93h27.99v107.73h29.08v18.92h-57.07v-126.65Z"/>
+              <path d="M1505.56,86.93h54.73v18.92h-26.74v31.9h23.3v19.54h-23.3v56.29h-27.99v-126.65Z"/>
+            </g>
+          </g>
+          <line class="footer-cls-3" x1="578.91" y1="162.09" x2="578.91" y2="351.89"/>
+          <g>
+            <g class="logo-circle">
+              <circle class="footer-cls-5" cx="255" cy="255.25" r="250"/>
+              <g>
+                <line class="footer-cls-5" x1="252.43" y1="467.81" x2="252.43" y2="505.25"/>
+                <line class="footer-cls-5" x1="252.43" y1="9.52" x2="252.43" y2="46.96"/>
+                <line class="footer-cls-5" x1="44.92" y1="252.88" x2="7.35" y2="252.88"/>
+                <line class="footer-cls-5" x1="65.5" y1="151.29" x2="35.66" y2="135.6"/>
+                <line class="footer-cls-5" x1="65.63" y1="355.88" x2="37.85" y2="372.08"/>
+                <line class="footer-cls-5" x1="506.52" y1="253.84" x2="468.95" y2="253.84"/>
+                <line class="footer-cls-5" x1="371.28" y1="430.29" x2="394.26" y2="462.93"/>
+                <line class="footer-cls-5" x1="109.44" y1="57.79" x2="127.09" y2="82.85"/>
+                <line class="footer-cls-5" x1="140.37" y1="428.24" x2="118.82" y2="463.31"/>
+                <line class="footer-cls-5" x1="377.14" y1="42.88" x2="360.56" y2="69.88"/>
+                <line class="footer-cls-5" x1="445.96" y1="356.84" x2="476.43" y2="375.36"/>
+                <line class="footer-cls-5" x1="445.96" y1="151.61" x2="473.34" y2="133.48"/>
+              </g>
+            </g>
+            <circle class="footer-cls-6" cx="194.47" cy="223" r="11.82"/>
+            <path class="footer-cls-4" d="M67.76,227.05l32.92-55.55c-17.03-58.2-15.13-112.9,19.55-161.51l82.3,74.07h96.7L386.66,6.9c31.35,32.32,39.01,89.49,24.69,169.74l31.89,54.52-21.6-6.17,35.49,79.21-38.06-11.32-38.06,89.5-9.77-32.4-65.32,85.38,2.57-42.18-54.01,50.41-56.58-50.41,4.11,42.69-64.29-87.44-8.74,34.46-40.63-90.53-33.95,10.29,33.43-79.21-20.06,3.6Z"/>
+            <path class="footer-cls-7" d="M125.48,137.68l-13.37,12.86c-12.68-37.02-12.62-74.48,7.72-112.64,21.94,16.78,40.22,36.79,53.49,61.21l-21.6,19.55c-10.49-15.84-19.85-35.09-28.29-57.09-8.9,26.64-6.63,51.8,2.06,76.12Z"/>
+            <path class="footer-cls-7" d="M381.93,136.14l13.37,12.86c12.68-37.02,12.62-74.48-7.72-112.64-21.94,16.78-40.22,36.79-53.49,61.21l21.6,19.55c10.49-15.84,19.85-35.09,28.29-57.09,8.9,26.64,6.63,51.8-2.06,76.12Z"/>
+            <polygon class="footer-cls-7" points="135.77 234.12 201.6 289.67 187.72 337.51 153.77 290.19 160.45 324.65 114.68 282.99 135.77 234.12"/>
+            <polygon class="footer-cls-7" points="370.31 233.41 304.22 292.76 318.1 340.59 352.05 293.27 345.37 327.74 391.14 286.07 370.31 233.41"/>
+            <polygon class="footer-cls-7" points="109.28 232.06 87.67 270.64 112.88 267.04 109.28 232.06"/>
+            <polygon class="footer-cls-7" points="396.93 231.61 420.33 271.8 395.13 268.2 396.93 231.61"/>
+            <path class="footer-cls-7" d="M171.38,210.59l-21.09,6.69c5.16,15.17,11.71,26.67,20.06,33.43,10.79,7.68,21.59,11.25,32.4,13.37,4.8-2.83,7.98-6.47,8.74-11.32,1.14-6.42.82-10.72-2.06-11.32-11.24,2.05-21.09.39-29.32-5.66-5.45-8.25-9.07-16.61-8.74-25.2Z"/>
+            <path class="footer-cls-7" d="M228.03,248.78v69.82s53.24,0,53.24,0v-69.44c12.39,39.65,24.04,77.45,29.7,100.3v16.2c-5.15,7.15-12.85,14.81-21.99,22.76-13.31-1.81-23.39-5.25-27.78-11.57,8.8-6.15,16.65-13.32,22.76-22.37,3.1-8.66,0-16.45-10.8-23.15h-39.73c-11.7,5.26-14.4,13-11.19,22.37,4.28,8.67,12.57,16.41,23.53,23.53-7.19,6.23-16.35,9.46-27,10.42-10.03-4.85-18.72-12.93-25.07-26.62,6.89-35.64,17.01-72.55,34.33-112.26Z"/>
+            <g>
+              <circle class="footer-cls-2" cx="317.08" cy="221.46" r="45.18"/>
+              <circle class="footer-cls-2" cx="317.08" cy="221.46" r="22.35"/>
+              <line class="footer-cls-2" x1="317.08" y1="287.81" x2="317.08" y2="155.1"/>
+              <line class="footer-cls-2" x1="251.1" y1="221.46" x2="383.05" y2="221.46"/>
+            </g>
+            <circle class="footer-cls-1" cx="194.47" cy="223" r="11.82"/>
+            <path class="footer-cls-7" d="M145.92,201.07c18.58-.35,34.39,2.71,45.52,11.57,10.04,4.7,18.58,10.72,26.23,17.49l13.37,1.54c1.12-16.4-2.41-31.3-21.6-41.15l-18.52-8.74c-24.75.09-37.34,8.09-45.01,19.29Z"/>
+          </g>
         </g>
-        <g>
-          <path d="M122.22,7.59h3.66c1.95,0,2.87,1.15,2.87,3.17,0,2.52-1.39,3.11-3.15,3.11h-.97v4.63h-2.41V7.59ZM125.44,12.18c.89,0,1.05-.47,1.05-1.47,0-.82-.09-1.43-1.06-1.43h-.79v2.9h.81Z"/>
-          <path d="M129.92,7.59h3c2.2,0,3.62.59,3.62,2.88,0,1.35-.26,2.24-1.33,2.75l1.5,5.28h-2.49l-1.2-4.89h-.69v4.89h-2.41V7.59ZM133,12.22c1.01,0,1.31-.57,1.31-1.54s-.28-1.48-1.2-1.48h-.78v3.02h.67Z"/>
-          <path d="M138,7.59h4.9v1.64h-2.49v2.71h1.9v1.67h-1.9v3.26h2.52v1.63h-4.93V7.59Z"/>
-          <path d="M143.87,15.02v-3.93c0-2.26.78-3.65,3.27-3.65s3.14,1.29,3.14,3.15v.94h-2.36v-1.09c0-.63-.01-1.31-.78-1.31s-.84.69-.84,1.35v5.13c0,.74.12,1.33.84,1.33.75,0,.78-.67.78-1.33v-1.15h2.36v.94c0,1.86-.7,3.25-3.14,3.25s-3.27-1.43-3.27-3.64Z"/>
-          <path d="M151.62,7.59h2.41v10.91h-2.41V7.59Z"/>
-          <path d="M155.42,15.2l2.06-.31c.03,1.41.35,1.94.96,1.94.5,0,.61-.42.61-.79,0-.9-.46-1.44-1.2-2.07l-.94-.82c-.84-.7-1.47-1.52-1.47-2.84,0-1.85,1.17-2.86,3.06-2.86,2.33,0,2.67,1.82,2.71,3.1l-2.07.26c-.03-.97-.09-1.59-.71-1.59-.44,0-.65.47-.65.85,0,.81.42,1.24,1.05,1.79l.9.79c.94.81,1.7,1.76,1.7,3.27s-1.12,2.75-2.86,2.75c-2.06,0-3.06-1.04-3.14-3.46Z"/>
-          <path d="M162.59,7.59h4.9v1.64h-2.49v2.71h1.9v1.67h-1.9v3.26h2.52v1.63h-4.93V7.59Z"/>
-          <path d="M171.61,7.59h2.05l.65,6.36.82-6.35h1.6l.86,6.31.66-6.32h2.02l-1.31,10.91h-2.1l-.93-6.59-.88,6.59h-2.13l-1.32-10.91Z"/>
-          <path d="M181.27,15.06v-4.06c0-2.25.82-3.57,3.27-3.57s3.3,1.32,3.3,3.57v4.06c0,2.25-.84,3.6-3.3,3.6s-3.27-1.35-3.27-3.6ZM185.38,15.67v-5.25c0-.65-.08-1.28-.84-1.28-.71,0-.81.63-.81,1.28v5.25c0,.62.05,1.28.81,1.28s.84-.66.84-1.28Z"/>
-          <path d="M189.32,7.59h2.41v9.28h2.51v1.63h-4.92V7.59Z"/>
-          <path d="M195.28,7.59h4.72v1.63h-2.3v2.75h2.01v1.68h-2.01v4.85h-2.41V7.59Z"/>
-        </g>
       </g>
-      <line class="footer-cls-3" x1="115.44" y1="14.06" x2="115.44" y2="30.42"/>
-      <circle class="footer-cls-2" cx="82.31" cy="19.31" r="1.02"/>
-      <path class="footer-cls-7" d="M80.33,18.24l-1.82.58c.44,1.31,1.01,2.3,1.73,2.88.93.66,1.86.97,2.79,1.15.41-.24.69-.56.75-.98.1-.55.07-.92-.18-.98-.97.18-1.82.03-2.53-.49-.47-.71-.78-1.43-.75-2.17Z"/>
-      <path class="footer-cls-6" fill="black" d="M71.4,19.66l2.84-4.79c-1.47-5.02-1.3-9.73,1.68-13.92l7.09,6.38h8.33l7.53-6.65c2.7,2.78,3.36,7.71,2.13,14.63l2.75,4.7-1.86-.53,3.06,6.83-3.28-.98-3.28,7.71-.84-2.79-5.63,7.36.22-3.63-4.65,4.34-4.88-4.34.35,3.68-5.54-7.53-.75,2.97-3.5-7.8-2.93.89,2.88-6.83-1.73.31Z"/>
-      <path class="footer-cls-7" d="M76.37,11.96l-1.15,1.11c-1.09-3.19-1.09-6.42.66-9.71,1.89,1.45,3.47,3.17,4.61,5.27l-1.86,1.68c-.9-1.36-1.71-3.02-2.44-4.92-.77,2.3-.57,4.46.18,6.56Z"/>
-      <path class="footer-cls-7" d="M98.47,11.83l1.15,1.11c1.09-3.19,1.09-6.42-.66-9.71-1.89,1.45-3.47,3.17-4.61,5.27l1.86,1.68c.9-1.36,1.71-3.02,2.44-4.92.77,2.3.57,4.46-.18,6.56Z"/>
-      <polygon class="footer-cls-7" points="77.26 20.27 82.93 25.06 81.73 29.18 78.81 25.1 79.38 28.07 75.44 24.48 77.26 20.27"/>
-      <polygon class="footer-cls-7" points="97.47 20.21 91.77 25.32 92.97 29.44 95.89 25.37 95.32 28.33 99.26 24.74 97.47 20.21"/>
-      <polygon class="footer-cls-7" points="74.97 20.09 73.11 23.42 75.28 23.11 74.97 20.09"/>
-      <polygon class="footer-cls-7" points="99.76 20.05 101.78 23.51 99.6 23.2 99.76 20.05"/>
-      <path class="footer-cls-7" d="M85.21,21.53v6.02s4.59,0,4.59,0v-5.98c1.07,3.42,2.07,6.67,2.56,8.64v1.4c-.44.62-1.11,1.28-1.89,1.96-1.15-.16-2.02-.45-2.39-1,.76-.53,1.44-1.15,1.96-1.93.27-.75,0-1.42-.93-1.99h-3.42c-1.01.45-1.24,1.12-.96,1.93.37.75,1.08,1.41,2.03,2.03-.62.54-1.41.82-2.33.9-.86-.42-1.61-1.11-2.16-2.29.59-3.07,1.47-6.25,2.96-9.67Z"/>
-      <g>
-        <circle class="footer-cls-4" cx="92.88" cy="19.18" r="3.89"/>
-        <circle class="footer-cls-4" cx="92.88" cy="19.18" r="1.93"/>
-        <line class="footer-cls-4" x1="92.88" y1="24.89" x2="92.88" y2="13.46"/>
-        <line class="footer-cls-4" x1="87.19" y1="19.18" x2="98.56" y2="19.18"/>
-      </g>
-      <circle class="footer-cls-1" cx="82.31" cy="19.31" r="1.02"/>
-      <path class="footer-cls-7" d="M78.13,17.42c1.6-.03,2.96.23,3.92,1,.87.41,1.6.92,2.26,1.51l1.15.13c.1-1.41-.21-2.7-1.86-3.55l-1.6-.75c-2.13,0-3.22.7-3.88,1.66Z"/>
-      <g class="site-created-text">
-        <path d="M0,21.87l1.04-.28c.06.9.29,1.81,1.19,1.81.6,0,.92-.34.92-.99,0-.76-.38-1.15-.91-1.62l-1.41-1.25c-.56-.49-.81-1.02-.81-1.86,0-1.24.76-1.94,1.97-1.94,1.34,0,1.98.7,2.12,2.17l-1,.27c-.06-.83-.25-1.54-1.12-1.54-.58,0-.92.31-.92.92,0,.51.16.8.55,1.14l1.42,1.25c.63.56,1.2,1.31,1.2,2.36,0,1.25-.84,2-2.01,2-1.46,0-2.15-1-2.23-2.45Z"/>
-        <path d="M5.14,16.17h1.11v1.16h-1.11v-1.16ZM5.14,18.23h1.11v6h-1.11v-6Z"/>
-        <path d="M7.74,22.88v-3.91h-.63v-.74h.63v-1.75h1.11v1.75h.97v.74h-.97v3.84c0,.47.11.65.55.65.1,0,.27-.01.4-.03v.82c-.28.04-.49.06-.77.06-.94,0-1.3-.56-1.3-1.43Z"/>
-        <path d="M10.53,21.91v-1.37c0-1.59.39-2.4,1.78-2.4,1.51,0,1.7.98,1.7,2.62v.49h-2.37v1.2c0,.73.2,1.04.67,1.04s.6-.38.6-.99v-.36h1.08v.23c0,1.2-.47,1.94-1.69,1.94-1.41,0-1.78-.83-1.78-2.4ZM12.91,20.65v-.54c0-.74-.07-1.14-.62-1.14s-.65.32-.65,1.36v.32h1.28Z"/>
-        <path d="M17.33,21.53v-2.97c0-1.7.48-2.81,2.26-2.81,1.57,0,2.12.9,2.12,2.42v.66h-1.11v-.59c0-.93-.02-1.58-1-1.58s-1.09.69-1.09,1.72v3.33c0,1.27.28,1.68,1.09,1.68.94,0,1-.67,1-1.67v-.62h1.11v.62c0,1.55-.47,2.6-2.12,2.6-1.79,0-2.26-1.23-2.26-2.79Z"/>
-        <path d="M22.77,18.23h1.11v.85c.44-.73.88-.92,1.33-.92.05,0,.09,0,.18.01v1.22c-.17-.06-.39-.12-.61-.12-.34,0-.61.12-.89.58v4.38h-1.11v-6Z"/>
-        <path d="M25.95,21.91v-1.37c0-1.59.39-2.4,1.78-2.4,1.51,0,1.7.98,1.7,2.62v.49h-2.37v1.2c0,.73.2,1.04.67,1.04s.6-.38.6-.99v-.36h1.08v.23c0,1.2-.47,1.94-1.69,1.94-1.41,0-1.78-.83-1.78-2.4ZM28.34,20.65v-.54c0-.74-.07-1.14-.62-1.14s-.65.32-.65,1.36v.32h1.28Z"/>
-        <path d="M30.31,22.92c0-1.49,1.08-1.93,2.37-2.44v-.43c0-.73-.08-1.08-.6-1.08-.46,0-.63.33-.63.85v.3l-1.1-.04c.02-1.33.58-1.94,1.81-1.94s1.64.66,1.64,1.9v2.74c0,.56.05,1.06.1,1.44h-1.02c-.04-.22-.11-.6-.15-.88-.15.47-.53.97-1.21.97s-1.2-.69-1.2-1.39ZM32.68,22.86v-1.7c-.69.39-1.26.73-1.26,1.42,0,.49.19.78.53.78.32,0,.63-.34.73-.5Z"/>
-        <path d="M35.08,22.88v-3.91h-.63v-.74h.63v-1.75h1.11v1.75h.97v.74h-.97v3.84c0,.47.11.65.55.65.1,0,.27-.01.4-.03v.82c-.28.04-.49.06-.77.06-.94,0-1.3-.56-1.3-1.43Z"/>
-        <path d="M37.86,21.91v-1.37c0-1.59.39-2.4,1.78-2.4,1.51,0,1.7.98,1.7,2.62v.49h-2.37v1.2c0,.73.2,1.04.67,1.04s.6-.38.6-.99v-.36h1.08v.23c0,1.2-.47,1.94-1.69,1.94-1.41,0-1.78-.83-1.78-2.4ZM40.25,20.65v-.54c0-.74-.07-1.14-.62-1.14s-.65.32-.65,1.36v.32h1.28Z"/>
-        <path d="M42.23,21.87v-1.16c0-1.37.25-2.56,1.47-2.56.4,0,.74.21,1,.47v-2.79h1.11v8.41h-1.11v-.38c-.26.28-.57.47-.97.47-1.02,0-1.51-.66-1.51-2.44ZM44.7,23.21v-3.93c-.2-.13-.44-.26-.71-.26-.52,0-.65.57-.65,1.26v1.69c0,.84.08,1.47.67,1.47.21,0,.45-.07.69-.23Z"/>
-        <path d="M49.41,15.82h1.93c1.52,0,2.24.66,2.24,2.11,0,1.04-.38,1.66-1.2,1.78,1.01.24,1.43.93,1.43,2.13,0,1.45-.65,2.4-2.16,2.4h-2.24v-8.41ZM51.27,19.33c.99,0,1.29-.4,1.29-1.4,0-1.15-.51-1.24-1.7-1.24h-.28v2.64h.7ZM51.37,23.39c1.05,0,1.32-.47,1.32-1.56s-.38-1.61-1.41-1.61h-.7v3.17h.79Z"/>
-        <path d="M54.66,24.88c.81,0,1.09-.09,1.09-.45,0-.12-.11-.61-.23-1.1l-1.2-5.11h1.12l.81,4.48.78-4.48h1.12l-1.43,6.33c-.2.87-.83,1.17-1.92,1.17h-.13v-.85Z"/>
-      </g>
-    </g>
-  </g>
-</svg>
-  
-  		</div>
+    </svg>
+  </span>
 </a>
 </div>
+
 <style>
-	@keyframes rotate-infinite {
+@keyframes rotate-infinite {
   from {
     transform: rotate(0deg);
   }
@@ -317,51 +223,79 @@ echo '</div>'; // end of third column
     transform: rotate(360deg);
   }
 }
-	.logo-circle {
-		  animation: rotate-infinite 35s linear infinite; /* Adjust the duration as needed */
-  transform-origin: center;
-		transform-box: fill-box;
-		transform-origin: 50% 50%;
-	}
-	.precise-wolf-digital-logo g.precise-wolf-logo-text, 
-	.precise-wolf-digital-logo g.logo-circle *{
-transition:all .25s ease-in-out;
+
+.precise-wolf-digital-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 200px;
+    text-decoration: none;
+    color: inherit;
 }
+
+.precise-wolf-site-created-text {
+    flex: 0 0 auto;
+    font-size: 10px;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: inherit;
+    transition: all .25s ease-in-out;
+}
+
+.precise-wolf-logo-svg-wrap {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: block;
+}
+
+.precise-wolf-logo-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.logo-circle {
+    animation: rotate-infinite 35s linear infinite;
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+}
+
+.precise-wolf-digital-logo g.precise-wolf-logo-text,
+.precise-wolf-digital-logo g.logo-circle * {
+    transition: all .25s ease-in-out;
+}
+
 .precise-wolf-digital-logo:hover g.precise-wolf-logo-text {
-    fill:#0f9fda;
+    fill: #0f9fda;
 }
+
 .precise-wolf-digital-logo:hover g.logo-circle * {
     stroke: #0f9fda;
 }
-g.site-created-text {
-    fill: black;
+
+.precise-wolf-digital-logo:hover .precise-wolf-site-created-text {
+    color: #0f9fda;
 }
+
 .text-white g.logo-circle * {
     stroke: white;
 }
+
 .text-white .precise-wolf-logo-text,
-.text-white .site-created-text * {
-    fill:white;
-}
-.text-white g.site-created-text {
+.text-white .precise-wolf-site-created-text {
     fill: white;
+    color: white;
 }
 </style>
 <!-- end of backlink -->
 
-</div>
-</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-<?php
-
-// echo '<div class="text-center bg-accent-secondary" style="padding:0px 50px 50px;color:gray;">';
-//     echo '<div class="d-flex justify-content-center align-items-center">';
-//         echo '<small class=""><a href="https://latinowebstudio.com/" target="_blank" rel="noopener noreferrer" title="Web Design, Development & SEO done by Latino Web Studio in Denver, CO" style="" class="">Web Design &amp; SEO in Denver, CO</a> done by Latino Web Studio.</small>';
-//     echo '</div>';
-// echo '</div>';
-
-?>
 <!-- The first Modal -->
 <div id="mobileMenu" class="modal-custom mobile-menu" style="opacity:0;pointer-events:none;">
 
@@ -381,14 +315,22 @@ g.site-created-text {
 echo '<div style="width:100%;max-width:165px;" id="logoMain">';
 echo '<a href="' . home_url() . '" title="Homepage link for ' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '">';
 
-if (logoImg()) {
-echo wp_get_attachment_image(logoImg()['id'], 'full','',array(
-'class'=>'w-100 h-auto skip-lazy',
-'style'=>''
-));
+
+$logo_image = logoImg();
+
+if (! empty($logo_image['id'])) {
+    echo wp_get_attachment_image(
+        $logo_image['id'],
+        'full',
+        false,
+        array(
+            'class' => 'w-100 h-auto skip-lazy'
+        )
+    );
 } else {
-echo logoSVG(); 
+    echo logoSVG();
 }
+
 
 echo '</a>';
 echo '</div>';
@@ -459,3 +401,4 @@ wp_footer();
 echo '</body>';
 echo '</html>';
 ?>
+
